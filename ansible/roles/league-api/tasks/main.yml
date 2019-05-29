@@ -23,10 +23,10 @@
 - name: Create league_api backup cron job
   cron: user="ubuntu" name="league_api backup cron" hour="20" minute="14" job="/home/ubuntu/league_api_backup.sh >> /home/ubuntu/logs/league_api_backup.sh.log 2>&1"
 
-- name: Create 010-league-api vhost
-  template: src=010-league-api.conf.j2 dest=/etc/apache2/sites-available/010-league-api.conf owner=root group=root mode=0644
-  notify: Restart apache
+#- name: Create 010-league-api vhost
+#  template: src=010-league-api.conf.j2 dest=/etc/apache2/sites-available/010-league-api.conf owner=root group=root mode=0644
+#  notify: Restart apache
 
-- name: Enable 010-league-api vhost
-  file: src=../sites-available/010-league-api.conf dest=/etc/apache2/sites-enabled/010-league-api.conf state=link owner=root group=root mode=0644
-  notify: Restart apache
+#- name: Enable 010-league-api vhost
+#  file: src=../sites-available/010-league-api.conf dest=/etc/apache2/sites-enabled/010-league-api.conf state=link owner=root group=root mode=0644
+#  notify: Restart apache

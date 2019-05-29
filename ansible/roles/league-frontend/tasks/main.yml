@@ -1,0 +1,32 @@
+---
+- name: Add ubuntu user to www-data group
+  user:
+    name: ubuntu
+    groups: www-data
+    append: yes
+
+- name: Create league_frontend docroot
+  file: path={{ league_frontend_docroot }} state=directory owner=ubuntu group=ubuntu mode=0775
+
+- name: Create league_frontend database
+  mysql_db: name={{ league_frontend_db_name }} state=present collation="utf8mb4_general_ci" encoding="utf8mb4"
+
+- name: Create league_frontend database user
+  mysql_user: name={{ league_frontend_db_user }} password={{ league_frontend_db_password }} priv="{{ league_frontend_db_name }}.*:ALL" state=present
+
+- name: Create /home/ubuntu/.league-frontend.my.cnf
+  template: src=.league-frontend.my.cnf.j2 dest=/home/ubuntu/.league-frontend.my.cnf owner=ubuntu group=ubuntu mode=0644
+
+- name: Create /home/ubuntu/league_frontend_backup.sh
+  template: src=league_frontend_backup.sh.j2 dest=/home/ubuntu/league_frontend_backup.sh owner=ubuntu group=ubuntu mode=0755
+
+- name: Create league_frontend backup cron job
+  cron: user="ubuntu" name="league_frontend backup cron" hour="20" minute="14" job="/home/ubuntu/league_frontend_backup.sh >> /home/ubuntu/logs/league_frontend_backup.sh.log 2>&1"
+
+- name: Create 010-league-frontend vhost
+  template: src=010-league-frontend.conf.j2 dest=/etc/apache2/sites-available/010-league-frontend.conf owner=root group=root mode=0644
+  notify: Restart apache
+
+- name: Enable 010-league-frontend vhost
+  file: src=../sites-available/010-league-frontend.conf dest=/etc/apache2/sites-enabled/010-league-frontend.conf state=link owner=root group=root mode=0644
+  notify: Restart apache

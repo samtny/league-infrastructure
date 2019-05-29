@@ -4,10 +4,16 @@ league_api_url: local.league_api.com
 league_api_runmode: development
 league_api_docroot: /var/www/league_api
 league_api_log_directory: /home/vagrant
-
 league_api_deploy_host: local.league_api.com
 league_api_deploy_user:
-
 league_api_db_name: league-api
-
 league_api_backup_directory: /home/sthompson/backups
+
+league_frontend_url: local.league_frontend.com
+league_frontend_runmode: development
+league_frontend_docroot: /var/www/league-frontend
+league_frontend_log_directory: /home/vagrant
+league_frontend_deploy_host: local.league_frontend.com
+league_frontend_deploy_user:
+league_frontend_db_name: league-frontend
+league_frontend_backup_directory: /home/sthompson/backups

@@ -4,10 +4,16 @@ league_api_url: pinballleague.org
 league_api_runmode: production
 league_api_docroot: /var/www/league-api
 league_api_log_directory: /home/ubuntu/logs
-
 league_api_deploy_host: web-prod-lamp
 league_api_deploy_user: ubuntu
-
 league_api_db_name: league-api
-
 league_api_backup_directory: /home/ubuntu/backups
+
+league_frontend_url: pinballleague.org
+league_frontend_runmode: production
+league_frontend_docroot: /var/www/league-frontend
+league_frontend_log_directory: /home/ubuntu/logs
+league_frontend_deploy_host: web-prod-lamp
+league_frontend_deploy_user: ubuntu
+league_frontend_db_name: league-frontend
+league_frontend_backup_directory: /home/ubuntu/backups

@@ -3,6 +3,7 @@
   become: true
   roles:
     - league-api
+    - league-frontend
   vars_files:
     - ../config.yml
     - ../credentials.yml
