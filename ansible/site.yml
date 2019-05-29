@@ -1,0 +1,10 @@
+- name: Configure league-api
+  hosts: all
+  become: true
+  roles:
+    - league-api
+  vars_files:
+    - ../config.yml
+    - ../credentials.yml
+  tags:
+    - league-api

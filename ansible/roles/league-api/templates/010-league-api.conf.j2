@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+    ServerAdmin me@myserver
+    DocumentRoot /var/www/league-api/public/
+    ServerName pinballleague.org
+    ServerAlias www.pinballleague.org
+    RewriteEngine On
+    RewriteOptions inherit
+
+    <Directory "/var/www/league-api/public/">
+        Options +FollowSymLinks +Indexes
+        AllowOverride All
+        order allow,deny
+        allow from all
+	      Require all granted
+    </Directory>
+
+</VirtualHost>

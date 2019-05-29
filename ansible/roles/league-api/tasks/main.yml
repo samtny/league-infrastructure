@@ -1,0 +1,32 @@
+---
+- name: Add ubuntu user to www-data group
+  user:
+    name: ubuntu
+    groups: www-data
+    append: yes
+
+- name: Create league_api docroot
+  file: path={{ league_api_docroot }} state=directory owner=ubuntu group=ubuntu mode=0775
+
+- name: Create league_api database
+  mysql_db: name={{ league_api_db_name }} state=present collation="utf8mb4_general_ci" encoding="utf8mb4"
+
+- name: Create league_api database user
+  mysql_user: name={{ league_api_db_user }} password={{ league_api_db_password }} priv="{{ league_api_db_name }}.*:ALL" state=present
+
+- name: Create /home/ubuntu/.league-api.my.cnf
+  template: src=.league-api.my.cnf.j2 dest=/home/ubuntu/.league-api.my.cnf owner=ubuntu group=ubuntu mode=0644
+
+- name: Create /home/ubuntu/league_api_backup.sh
+  template: src=league_api_backup.sh.j2 dest=/home/ubuntu/league_api_backup.sh owner=ubuntu group=ubuntu mode=0755
+
+- name: Create league_api backup cron job
+  cron: user="ubuntu" name="league_api backup cron" hour="20" minute="14" job="/home/ubuntu/league_api_backup.sh >> /home/ubuntu/logs/league_api_backup.sh.log 2>&1"
+
+- name: Create 010-league-api vhost
+  template: src=010-league-api.conf.j2 dest=/etc/apache2/sites-available/010-league-api.conf owner=root group=root mode=0644
+  notify: Restart apache
+
+- name: Enable 010-league-api vhost
+  file: src=../sites-available/010-league-api.conf dest=/etc/apache2/sites-enabled/010-league-api.conf state=link owner=root group=root mode=0644
+  notify: Restart apache

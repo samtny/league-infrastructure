@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export AWS_DEFAULT_PROFILE=samtny
+export AWS_DEFAULT_REGION=us-east-1
+
+export AWS_PROFILE=${AWS_DEFAULT_PROFILE}
+
+DEFAULTS_LOADED=true
