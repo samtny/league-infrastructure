@@ -2,3 +2,4 @@ working
 .idea
 credentials.yml
 config.yml
+config/config.local.yml
