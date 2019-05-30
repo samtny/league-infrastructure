@@ -1,28 +1,28 @@
 <VirtualHost *:80>
 
     ServerAdmin me@myserver
-    DocumentRoot /var/www/league-frontend/public/
-    ServerName pinballleague.org
-    ServerAlias www.pinballleague.org
+    DocumentRoot {{ league_frontend_docroot }}/public/
+    ServerName {{ league_frontend_url }}
+    ServerAlias www.{{ league_frontend_url }}
     RewriteEngine On
     RewriteOptions inherit
 
-    <Directory "/var/www/league-frontend/public/">
+    <Directory "{{ league_frontend_docroot }}/public/">
         Options +FollowSymLinks +Indexes
         AllowOverride All
         order allow,deny
         allow from all
-	      Require all granted
+        Require all granted
     </Directory>
 
-    Alias /api "/var/www/league-api/public/"
+    Alias /api "{{ league_api_docroot }}/public/"
 
-    <Directory "/var/www/league-api/public/">
+    <Directory "{{ league_api_docroot }}/public/">
         Options +FollowSymLinks +Indexes
         AllowOverride All
         order allow,deny
         allow from all
-	      Require all granted
+        Require all granted
     </Directory>
 
 </VirtualHost>
