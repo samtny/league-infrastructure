@@ -69,7 +69,7 @@ export ANSIBLE_CONFIG="$ANSIBLE_CONFIG_FILE"
 #ansible -i ec2.py -u ubuntu tag_Name_dp_test4_code -m ping -vvvv
 #python ec2.py --list --refresh-cache
 
-if [ "$CONFIG" -ne "local" ]; then
+if [ "$CONFIG" != "local" ]; then
   ansible-playbook -i "$WORKING_DIR/ec2.py" --extra-vars "project=$PROJECT env=$ENVIRONMENT Project=$PROJECT Environment=$ENVIRONMENT" --tags "$TAGS" ./ansible/site.yml -v
 else
   sudo ansible-playbook --connection=local --inventory localhost, ansible/site.yml -v 

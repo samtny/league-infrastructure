@@ -1,3 +1,5 @@
 ---
 dependencies:
   - apache
+  - geerlingguy.memcached
+

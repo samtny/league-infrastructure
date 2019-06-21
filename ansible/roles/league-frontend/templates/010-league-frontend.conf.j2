@@ -3,7 +3,7 @@
     ServerAdmin me@myserver
     DocumentRoot {{ league_frontend_docroot }}/public/
     ServerName {{ league_frontend_url }}
-    ServerAlias www.{{ league_frontend_url }}
+    ServerAlias *.{{ league_frontend_url }}
     RewriteEngine On
     RewriteOptions inherit
 
