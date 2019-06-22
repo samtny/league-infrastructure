@@ -1,0 +1,3 @@
+- name: Install pecl/memcached
+  pear: name=pecl/memcached state=present
+  notify: Restart php
